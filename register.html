@@ -7,13 +7,21 @@
 			* {
 				/*border: 1px solid;*/
 			}
+			form {
+				text-align: center;
+			}
 			fieldset {
 				line-height: 2.0;
+				display: block;
 			}
 			input, select {
 				position: relative;
-				left: 20px;
-
+				left: 10px;
+				width: 150px;
+			}
+			select {
+				position: relative;
+				bottom: 7px;
 			}
 			.podpiski {
 				display: inline-block;
@@ -21,21 +29,34 @@
 				line-height: 1.0;
 				text-align: justify;
 				text-align-last: right;
+				position: relative;
+				right: 10px;
 			}
-			.checkbox {
+			/*.checkbox {
 				display: inline-block;
 				position: relative;
 				bottom: 13px;
-			}
+			}*/
 			.zapiskidlyatupih {
 				color: grey;
 				font-size: 14px;
 				margin: 0px;
 			}
+			nav {
+				text-align: center;
+			}
+			.other-a {
+				display: inline-block;
+				width: 19%;
+			}
 			
 		</style>
 	</head>
 	<body>
+		<nav>
+			<a class="other-a" href="index.html">Главная</a> | <div class="other-a">Подать заявку</div> | <a class="other-a" href="">О турнире</a> | <a class="other-a" href="">Контакты</a> | <a class="other-a" href="">Поданные заявки</a>
+		</nav>
+		<hr>
 		<h1>Подать заявку на участие</h1>
 		<div class="zapiskidlyatupih">Введите данные для участия в турнире</div>
 		<form method="post" id="registrationForm">
@@ -43,30 +64,30 @@
 				<legend>Школьная информация</legend>
 				<div class="podpiski">Фамилия</div> <input type="text" id="lastName" required><br>
 				<div class="podpiski">Имя</div> <input type="text" id="name" required><br>
-				<div class="podpiski">Класс</div> <input type="text" id="class" pattern="[0-9][А-Яа-яЁё]" placeholder="XY" required><br>
+				<div class="podpiski">Класс</div> <input type="text" id="class" pattern="[0-9][А-Яа-яЁё]" placeholder="Например: &laquo;7А&raquo;" required><br>
 			</fieldset>
 			<fieldset>
 				<legend>Контактная информация</legend>
-				<div class="podpiski">Телефон</div> <input type="tel" id="phone" placeholder="+7 (YYY) XXX-XX-XX" required><br>
+				<div class="podpiski">Телефон</div> <input type="tel" id="phone" placeholder="+7РРРXXXXXXX" required><br>
 				<div class="podpiski">Электронная почта</div> <input type="email" id="email" required><br>
 			</fieldset>
 			<fieldset>
 				<legend>Информация для турнира</legend>
 				<div class="podpiski">Ник в Minecraft</div> <input type="text" id="minecraftNickname" required><br>
-				<div class="podpiski">Ваш уровень игры в Minecraft</div> <select id="experience" required>
+				<div class="podpiski">Ваш уровень игры в Minecraft</div> <select id="experience" style="width:155px;" required>
 					<option>Новичок</option>
 					<option>Опытный</option>
 					<option>Профессионал</option>
 				</select><br>
-				<div class="podpiski">Вы прочитали и приняли Правила игры (прочитать можно ниже)</div> <div class="checkbox"><input type="checkbox" id="agreeRules" name="pravila" value="pryes" required></div><br>
+				<div class="podpiski">Вы прочитали и приняли Правила игры (прочитать можно ниже)</div> <input type="checkbox" style="display:inline-block; position:relative; bottom:13px;" id="agreeRules" name="pravila" value="pryes"><br>
 			</fieldset>
 			<button type="submit"  id="submitBtn" style="position:relative; top:10px;">Отправить</button>
 		</form>
 		<br>
-
-		<div id="successMessage"></div>
-    	<div id="errorMessage"></div>
-
+		<div style="text-align:center;">
+		<div id="successMessage" style="border: 1px solid; background-color:#00ff00; display: inline-block; width:300px; text-align:center; display:none; position:absolute; bottom:600px; ">Заявка успешно отправлена!<br><a href="index.html"><button>На главную</button></a></div>
+    		<div id="errorMessage" style="border: 1px solid; background-color:#ff0000; display: inline-block; width:300px; text-align:center; display:none; position:absolute; bottom:600px;">Ошибка при отправке. Попробуйте ещё раз.<br><button>Попробовать ещё раз</button></div>
+		</div>
 		<details>
 			<summary>Правила игры</summary>
 			<p>(в разработке)</p>
@@ -76,7 +97,7 @@
 		
         document.getElementById('registrationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
+
             const submitBtn = document.getElementById('submitBtn');
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
