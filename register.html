@@ -13,12 +13,12 @@
 			}
 			fieldset {
 				line-height: 2.0;
-				display: block;
+				display: inline-block;
 			}
 			input, select {
 				position: relative;
 				left: 10px;
-				width: 150px;
+				width: 300px;
 			}
 			select {
 				position: relative;
@@ -26,7 +26,7 @@
 			}
 			.podpiski {
 				display: inline-block;
-				width: 175px;
+				width: 300px;
 				line-height: 1.0;
 				text-align: right;
 				text-align-last: right;
@@ -61,22 +61,22 @@
 				<div class="podpiski">Фамилия</div> <input type="text" id="lastName" required><br>
 				<div class="podpiski">Имя</div> <input type="text" id="name" required><br>
 				<div class="podpiski">Класс</div> <input type="text" id="class" pattern="[0-9][А-Яа-яЁё]" placeholder="Например: &laquo;7А&raquo;" required><br>
-			</fieldset>
+			</fieldset><br>
 			<fieldset>
 				<legend>Контактная информация</legend>
 				<div class="podpiski">Телефон</div> <input type="tel" id="phone" placeholder="+7РРРXXXXXXX" required><br>
 				<div class="podpiski">Электронная почта</div> <input type="email" id="email" required><br>
-			</fieldset>
+			</fieldset><br>
 			<fieldset>
 				<legend>Информация для турнира</legend>
 				<div class="podpiski">Ник в Minecraft</div> <input type="text" id="minecraftNickname" required><br>
-				<div class="podpiski">Ваш уровень игры в Minecraft</div> <select id="experience" style="width:155px;" required>
+				<div class="podpiski">Ваш уровень игры в Minecraft</div> <select id="experience" style="width:307px; position:relative; top:0px;" required>
 					<option>Новичок</option>
 					<option>Опытный</option>
 					<option>Профессионал</option>
 				</select><br>
-				<div class="podpiski">Вы прочитали и приняли Правила игры (прочитать можно ниже)</div> <input type="checkbox" style="display:inline-block; position:relative; bottom:13px;" id="agreeRules" name="pravila" value="pryes"><br>
-			</fieldset>
+				<div class="podpiski">Вы прочитали и приняли Правила игры (прочитать можно ниже)</div> <input type="checkbox" style="display:inline-block; position:relative; bottom:7px;" id="agreeRules" name="pravila" value="pryes"><br>
+			</fieldset><br>
 			<button type="submit"  id="submitBtn" style="position:relative; top:10px;">Отправить</button>
 		</form>
 		<br>
@@ -90,7 +90,7 @@
 		</details>
 		<hr>
 		<footer>
-			Версия: 13.03.2026 19:32<br>
+			Версия: 15.03.2026 16:30<br>
 			(c) Сторожик Марк, 7А, 2026 г.
 		</footer>
 	</body>
