@@ -1,0 +1,16 @@
+* {
+	/*border: 1px solid;*/
+	font-family: Arial;
+}
+			
+nav {
+	text-align: center;
+}
+.other-a {
+	display: inline-block;
+	width: 19%;
+}
+footer {
+	font-size: 10pt;
+}
+

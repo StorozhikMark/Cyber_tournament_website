@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>Регистрация</title>
+		<link rel="stylesheet" href="styles.css">
+		<style>
+			* {
+				/*border: 1px solid;*/
+			}
+			form {
+				text-align: center;
+			}
+			fieldset {
+				line-height: 2.0;
+				display: inline-block;
+			}
+			input, select {
+				position: relative;
+				left: 10px;
+				width: 300px;
+			}
+			select {
+				position: relative;
+				bottom: 7px;
+			}
+			.podpiski {
+				display: inline-block;
+				width: 300px;
+				line-height: 1.0;
+				text-align: right;
+				text-align-last: right;
+				position: relative;
+				right: 10px;
+			}
+			/*.checkbox {
+				display: inline-block;
+				position: relative;
+				bottom: 13px;
+			}*/
+			.zapiskidlyatupih {
+				color: grey;
+				font-size: 14px;
+				margin: 0px;
+			}
+			summary {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="text-align:center;"><img src="logo.png" width="300"></div>
+		<hr>
+		<nav>
+			<a class="other-a" href="index.html">Главная</a> | <div class="other-a">Побриться</div> | <a class="other-a" href="about.html">О бритве</a> | <a class="other-a" href="contacts.html">Контакты</a> | <a class="other-a" href="zayavki.html">Бритые</a>
+		</nav>
+		<hr>
+		<h1>Подать заявку на бритье</h1>
+		<div class="zapiskidlyatupih">Введите данные для бритья</div>
+		<form method="post" id="registrationForm">
+			<fieldset>
+				<legend>Школьная информация</legend>
+				<div class="podpiski">Фамилия</div> <input type="text" id="lastName" required><br>
+				<div class="podpiski">Имя</div> <input type="text" id="name" required><br>
+				<div class="podpiski">Класс</div> <input type="text" id="class" pattern="[0-9][А-Яа-яЁё]" placeholder="Например: &laquo;7А&raquo;" required><br>
+			</fieldset><br>
+			<fieldset>
+				<legend>Контактная информация</legend>
+				<div class="podpiski">Телефон</div> <input type="tel" id="phone" placeholder="7РРРXXXXXXX" required><br>
+				<div class="podpiski">Электронная почта</div> <input type="email" id="email" required><br>
+			</fieldset><br>
+			<fieldset>
+				<legend>Информация для бритья</legend>
+				<div class="podpiski">Ник в Minecraft</div> <input type="text" id="minecraftNickname" required><br>
+				<div class="podpiski">Ваш уровень игры в Minecraft</div> <select id="experience" style="width:307px; position:relative; top:0px;" required>
+					<option>Новичок</option>
+					<option>Опытный</option>
+					<option>Профессионал</option>
+				</select><br>
+				<div class="podpiski">Вы прочитали и приняли Правила бритвы (прочитать можно ниже)</div> <input type="checkbox" style="display:inline-block; position:relative; bottom:7px;" id="agreeRules" name="pravila" value="pryes"><br>
+			</fieldset><br>
+			<button type="submit"  id="submitBtn" style="position:relative; top:10px;">Отправить</button>
+		</form>
+		<br>
+		<div style="text-align:center;">
+		<div id="successMessage" style="border: 1px solid; background-color:#00ff00; display: inline-block; width:300px; text-align:center; display:none; position:absolute; bottom:600px;">Заявка успешно отправлена!<br><a href="index.html"><button>На главную</button></a></div>
+    		<div id="errorMessage" style="border: 1px solid; background-color:#ff0000; display: inline-block; width:300px; text-align:center; display:none; position:absolute; bottom:600px;">Ошибка при отправке. Попробуйте ещё раз.<br><button>Попробовать ещё раз</button></div>
+		</div>
+		<details>
+			<summary>Правила бритвы</summary>
+			<p><a href="https://storozhikmark.github.io/Cyber_tournament_website/about.html">https://storozhikmark.github.io/Cyber_tournament_website/about.html</a></p>
+		</details>
+		<hr>
+		<footer>
+			Первоапрельская версия!<br>
+			© Сторожик Марк, 7А, 2026 г.
+		</footer>
+	</body>
+	<script>
+		
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Скрыть предыдущие сообщения
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Блокируем кнопку
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+            
+            // Сбор данных формы
+            const formData = {
+                Last_name: document.getElementById('lastName').value,
+				name: document.getElementById('name').value,
+                class: document.getElementById('class').value,
+				Phone: document.getElementById('phone').value,
+                Email: document.getElementById('email').value,
+                Nick: document.getElementById('minecraftNickname').value,
+                experience: document.getElementById('experience').value,
+                approval: document.getElementById('agreeRules').checked ? 'Да' : 'Нет'
+            };
+            
+            try {
+                // ЗАМЕНИ НА СВОЙ URL ОТ APPS SCRIPT
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbxQRh54trheRIC9Rz6GkCWuqw86ZQ_Mdi9ZCBvToE-lHmqUbFgEnJlMRNhzTa3dsrsvvQ/exec';
+                
+                // Создаем FormData 
+                const formBody = new URLSearchParams();
+                for (const key in formData) {
+                    formBody.append(key, formData[key]);
+                }
+                
+                const response = await fetch(scriptUrl, {
+                    method: 'POST',
+                    body: formBody
+                });
+                
+                // Показать сообщение об успехе
+                successMessage.style.display = 'block';
+                
+                // Очистить форму
+                document.getElementById('registrationForm').reset();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.style.display = 'block';
+            } finally {
+                // Разблокируем кнопку
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Отправить заявку';
+            }
+        });
+    
+	</script>
+</html>
+
+
+<!-- Фамилия Имя Класс Ник Правила участия Телефон Ел.почта  --->

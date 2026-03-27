@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация на турнир по Minecraft</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="minecraft-logo">
+                <img src="logo.png" alt="Логотип Minecraft" class="logo-img">
+                <h1>Регистрация на школьный турнир</h1>
+                <p>Заполните форму для участия в турнире по Minecraft</p>
+            </div>
+        
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="fullName">ФИО участника <span class="required">*</span></label>
+                <input type="text" id="fullName" name="fullName" required placeholder="Иванов Иван Иванович">
+            </div>
+            
+            <div class="form-group">
+                <label for="class">Класс <span class="required">*</span></label>
+                <input type="text" id="class" name="class" required placeholder="7А">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="ivanov@mail.ru">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Телефон для связи <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 123-45-67">
+            </div>
+            
+            <div class="form-group">
+                <label for="minecraftNickname">Никнейм в Minecraft <span class="required">*</span></label>
+                <input type="text" id="minecraftNickname" name="minecraftNickname" required placeholder="MinecraftPro123">
+            </div>
+            
+            <div class="form-group">
+                <label for="experience">Опыт игры в Minecraft <span class="required">*</span></label>
+                <select id="experience" name="experience" required>
+                    <option value="">Выберите опыт</option>
+                    <option value="новичок">Новичок (менее 6 месяцев)</option>
+                    <option value="опытный">Опытный (6 месяцев - 2 года)</option>
+                    <option value="профессионал">Профессионал (более 2 лет)</option>
+                </select>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="agreeRules" name="agreeRules" required>
+                <label for="agreeRules">Я согласен с правилами турнира <span class="required">*</span></label>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Отправить заявку
+            </button>
+        </form>
+        
+        <div class="message success" id="successMessage">
+            Заявка успешно отправлена! Мы свяжемся с вами.
+        </div>
+
+        <div class="message error" id="errorMessage">
+            Ошибка при отправке. Попробуйте еще раз.
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Скрыть предыдущие сообщения
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Блокируем кнопку
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+            
+            // Сбор данных формы
+            const formData = {
+                name: document.getElementById('fullName').value,
+                class: document.getElementById('class').value,
+                Email: document.getElementById('email').value,
+                Phone: document.getElementById('phone').value,
+                Nick: document.getElementById('minecraftNickname').value,
+                experience: document.getElementById('experience').value,
+                approval: document.getElementById('agreeRules').checked ? 'Да' : 'Нет'
+            };
+            
+            try {
+                // ЗАМЕНИ НА СВОЙ URL ОТ APPS SCRIPT
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbz7JdAURxNv8hWpwYwce4QTwIPs5Nx7tcughe4BpjxdkTq3ltWf5TbFxCNo0Z_itcj3Jg/exec';
+                
+                // Создаем FormData 
+                const formBody = new URLSearchParams();
+                for (const key in formData) {
+                    formBody.append(key, formData[key]);
+                }
+                
+                const response = await fetch(scriptUrl, {
+                    method: 'POST',
+                    body: formBody
+                });
+                
+                // Показать сообщение об успехе
+                successMessage.style.display = 'block';
+                
+                // Очистить форму
+                document.getElementById('registrationForm').reset();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.style.display = 'block';
+            } finally {
+                // Разблокируем кнопку
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Отправить заявку';
+            }
+        });
+    </script>
+</body>
+</html>
